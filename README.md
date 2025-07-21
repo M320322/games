@@ -61,7 +61,7 @@ python ./main.py
 
 ### GitHub Pages (Static)
 
-Web interface is deployed to GitHub Pages at https://M320322.github.io/games/
+Web interface is deployed to GitHub Pages at https://m320322.github.io/games/
 
 ## 📁 Project Structure
 
