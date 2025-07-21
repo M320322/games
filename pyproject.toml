@@ -11,3 +11,11 @@ dependencies = [
     "python-multipart>=0.0.20",
     "numpy>=2.3.1",
 ]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["games*", "agents*"]
+exclude = ["static*", "templates*", "deployment*"]
