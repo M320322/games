@@ -1,0 +1,178 @@
+2025-07-24 12:11:41,590 - INFO - Starting simulations with 16 worker threads
+2025-07-24 12:11:41,590 - INFO - Starting game simulations...
+2025-07-24 12:11:41,590 - INFO - ============================================================
+2025-07-24 12:11:41,590 - INFO - --- HALVING GAME SIMULATIONS ---
+2025-07-24 12:11:41,590 - INFO - Running 200 Halving Game games: RandomAgent vs MinimaxAgent (using 16 threads)
+2025-07-24 12:11:41,698 - INFO -   Completed 25/200 games
+2025-07-24 12:11:41,756 - INFO -   Completed 50/200 games
+2025-07-24 12:11:41,820 - INFO -   Completed 75/200 games
+2025-07-24 12:11:41,875 - INFO -   Completed 100/200 games
+2025-07-24 12:11:41,955 - INFO -   Completed 125/200 games
+2025-07-24 12:11:42,017 - INFO -   Completed 150/200 games
+2025-07-24 12:11:42,075 - INFO -   Completed 175/200 games
+2025-07-24 12:11:42,099 - INFO -   Completed 200/200 games
+2025-07-24 12:11:42,100 - INFO -   Batch completed: 200/200 games successful
+2025-07-24 12:11:42,100 - INFO - Running 200 Halving Game games: MinimaxAgent vs MinimaxAgent (using 16 threads)
+2025-07-24 12:11:42,290 - INFO -   Completed 25/200 games
+2025-07-24 12:11:42,448 - INFO -   Completed 50/200 games
+2025-07-24 12:11:42,580 - INFO -   Completed 75/200 games
+2025-07-24 12:11:42,708 - INFO -   Completed 100/200 games
+2025-07-24 12:11:42,865 - INFO -   Completed 125/200 games
+2025-07-24 12:11:42,990 - INFO -   Completed 150/200 games
+2025-07-24 12:11:43,142 - INFO -   Completed 175/200 games
+2025-07-24 12:11:43,230 - INFO -   Completed 200/200 games
+2025-07-24 12:11:43,230 - INFO -   Batch completed: 200/200 games successful
+2025-07-24 12:11:43,231 - INFO - Running 200 Halving Game games: MinimaxAgent vs RandomAgent (using 16 threads)
+2025-07-24 12:11:43,379 - INFO -   Completed 25/200 games
+2025-07-24 12:11:43,486 - INFO -   Completed 50/200 games
+2025-07-24 12:11:43,612 - INFO -   Completed 75/200 games
+2025-07-24 12:11:43,717 - INFO -   Completed 100/200 games
+2025-07-24 12:11:43,806 - INFO -   Completed 125/200 games
+2025-07-24 12:11:43,906 - INFO -   Completed 150/200 games
+2025-07-24 12:11:44,000 - INFO -   Completed 175/200 games
+2025-07-24 12:11:44,056 - INFO -   Completed 200/200 games
+2025-07-24 12:11:44,057 - INFO -   Batch completed: 200/200 games successful
+2025-07-24 12:11:44,057 - INFO - Running 200 Halving Game games: RandomAgent vs RandomAgent (using 16 threads)
+2025-07-24 12:11:44,071 - INFO -   Completed 25/200 games
+2025-07-24 12:11:44,081 - INFO -   Completed 50/200 games
+2025-07-24 12:11:44,088 - INFO -   Completed 75/200 games
+2025-07-24 12:11:44,096 - INFO -   Completed 100/200 games
+2025-07-24 12:11:44,102 - INFO -   Completed 125/200 games
+2025-07-24 12:11:44,113 - INFO -   Completed 150/200 games
+2025-07-24 12:11:44,121 - INFO -   Completed 175/200 games
+2025-07-24 12:11:44,127 - INFO -   Completed 200/200 games
+2025-07-24 12:11:44,127 - INFO -   Batch completed: 200/200 games successful
+2025-07-24 12:11:44,128 - INFO - --- TIC-TAC-TOE SIMULATIONS ---
+2025-07-24 12:11:44,128 - INFO - Running 200 Tic-Tac-Toe games: RandomAgent vs MinimaxAgent (using 16 threads)
+2025-07-24 12:13:36,247 - INFO -   Completed 25/200 games
+2025-07-24 12:15:19,908 - INFO -   Completed 50/200 games
+2025-07-24 12:16:56,764 - INFO -   Completed 75/200 games
+2025-07-24 12:18:29,840 - INFO -   Completed 100/200 games
+2025-07-24 12:20:01,076 - INFO -   Completed 125/200 games
+2025-07-24 12:21:22,259 - INFO -   Completed 150/200 games
+2025-07-24 12:23:01,506 - INFO -   Completed 175/200 games
+2025-07-24 12:23:47,416 - INFO -   Completed 200/200 games
+2025-07-24 12:23:47,416 - INFO -   Batch completed: 200/200 games successful
+2025-07-24 12:23:47,416 - INFO - Running 200 Tic-Tac-Toe games: MinimaxAgent vs MinimaxAgent (using 16 threads)
+2025-07-24 12:42:49,323 - INFO -   Completed 25/200 games
+2025-07-24 12:56:55,889 - INFO -   Completed 50/200 games
+2025-07-24 13:12:45,539 - INFO -   Completed 75/200 games
+2025-07-24 13:28:14,171 - INFO -   Completed 100/200 games
+2025-07-24 13:41:51,950 - INFO -   Completed 125/200 games
+2025-07-24 13:55:40,910 - INFO -   Completed 150/200 games
+2025-07-24 14:26:52,943 - INFO -   Completed 175/200 games
+2025-07-24 14:47:36,419 - INFO -   Completed 200/200 games
+2025-07-24 14:47:36,419 - INFO -   Batch completed: 200/200 games successful
+2025-07-24 14:47:36,419 - INFO - Running 200 Tic-Tac-Toe games: MinimaxAgent vs RandomAgent (using 16 threads)
+2025-07-24 15:06:49,638 - INFO -   Completed 25/200 games
+2025-07-24 15:20:06,493 - INFO -   Completed 50/200 games
+2025-07-24 15:32:11,408 - INFO -   Completed 75/200 games
+2025-07-24 15:45:18,322 - INFO -   Completed 100/200 games
+2025-07-24 15:58:28,225 - INFO -   Completed 125/200 games
+2025-07-24 16:11:33,648 - INFO -   Completed 150/200 games
+2025-07-24 16:27:00,222 - INFO -   Completed 175/200 games
+2025-07-24 16:35:52,564 - INFO -   Completed 200/200 games
+2025-07-24 16:35:52,564 - INFO -   Batch completed: 200/200 games successful
+2025-07-24 16:35:52,564 - INFO - Running 200 Tic-Tac-Toe games: RandomAgent vs RandomAgent (using 16 threads)
+2025-07-24 16:35:52,603 - INFO -   Completed 25/200 games
+2025-07-24 16:35:52,633 - INFO -   Completed 50/200 games
+2025-07-24 16:35:52,658 - INFO -   Completed 75/200 games
+2025-07-24 16:35:52,688 - INFO -   Completed 100/200 games
+2025-07-24 16:35:52,720 - INFO -   Completed 125/200 games
+2025-07-24 16:35:52,748 - INFO -   Completed 150/200 games
+2025-07-24 16:35:52,779 - INFO -   Completed 175/200 games
+2025-07-24 16:35:52,801 - INFO -   Completed 200/200 games
+2025-07-24 16:35:52,801 - INFO -   Batch completed: 200/200 games successful
+2025-07-24 16:35:52,802 - INFO - All simulations completed!
+2025-07-24 16:35:52,802 - INFO - Total games simulated: 1600
+2025-07-24 16:35:52,803 - INFO - 
+Total simulation time: 15851.21 seconds
+2025-07-24 16:35:52,815 - INFO - Results saved to results\results.csv
+2025-07-24 16:35:52,816 - INFO - 
+============================================================
+2025-07-24 16:35:52,816 - INFO - SIMULATION SUMMARY STATISTICS
+2025-07-24 16:35:52,816 - INFO - ============================================================
+2025-07-24 16:35:52,817 - INFO - 
+--- HALVING GAME ---
+2025-07-24 16:35:52,819 - INFO - 
+Minimax AI vs Minimax AI (200 games):
+2025-07-24 16:35:52,819 - INFO -   Player 1 (Minimax AI) wins: 150 (75.0%)
+2025-07-24 16:35:52,820 - INFO -   Player 2 (Minimax AI) wins: 50 (25.0%)
+2025-07-24 16:35:52,820 - INFO -   Average moves per game: 6.34
+2025-07-24 16:35:52,820 - INFO -   Min/Max moves: 4/9
+2025-07-24 16:35:52,820 - INFO -   Avg computation time - Player 1: 0.0492s
+2025-07-24 16:35:52,820 - INFO -   Avg computation time - Player 2: 0.0383s
+2025-07-24 16:35:52,821 - INFO -   Initial number range: 10.0-20.0
+2025-07-24 16:35:52,821 - INFO -   Average initial number: 15.0
+2025-07-24 16:35:52,821 - INFO - 
+Minimax AI vs Random AI (200 games):
+2025-07-24 16:35:52,821 - INFO -   Player 1 (Minimax AI) wins: 175 (87.5%)
+2025-07-24 16:35:52,821 - INFO -   Player 2 (Random AI) wins: 25 (12.5%)
+2025-07-24 16:35:52,821 - INFO -   Average moves per game: 6.25
+2025-07-24 16:35:52,821 - INFO -   Min/Max moves: 4/9
+2025-07-24 16:35:52,821 - INFO -   Avg computation time - Player 1: 0.0380s
+2025-07-24 16:35:52,821 - INFO -   Avg computation time - Player 2: 0.0258s
+2025-07-24 16:35:52,821 - INFO -   Initial number range: 10.0-20.0
+2025-07-24 16:35:52,821 - INFO -   Average initial number: 15.1
+2025-07-24 16:35:52,821 - INFO - 
+Random AI vs Minimax AI (200 games):
+2025-07-24 16:35:52,823 - INFO -   Player 1 (Random AI) wins: 26 (13.0%)
+2025-07-24 16:35:52,823 - INFO -   Player 2 (Minimax AI) wins: 174 (87.0%)
+2025-07-24 16:35:52,823 - INFO -   Average moves per game: 6.43
+2025-07-24 16:35:52,823 - INFO -   Min/Max moves: 4/10
+2025-07-24 16:35:52,823 - INFO -   Avg computation time - Player 1: 0.0196s
+2025-07-24 16:35:52,824 - INFO -   Avg computation time - Player 2: 0.0203s
+2025-07-24 16:35:52,824 - INFO -   Initial number range: 10.0-20.0
+2025-07-24 16:35:52,824 - INFO -   Average initial number: 15.4
+2025-07-24 16:35:52,824 - INFO - 
+Random AI vs Random AI (200 games):
+2025-07-24 16:35:52,825 - INFO -   Player 1 (Random AI) wins: 94 (47.0%)
+2025-07-24 16:35:52,825 - INFO -   Player 2 (Random AI) wins: 106 (53.0%)
+2025-07-24 16:35:52,825 - INFO -   Average moves per game: 6.30
+2025-07-24 16:35:52,825 - INFO -   Min/Max moves: 4/12
+2025-07-24 16:35:52,825 - INFO -   Avg computation time - Player 1: 0.0026s
+2025-07-24 16:35:52,825 - INFO -   Avg computation time - Player 2: 0.0027s
+2025-07-24 16:35:52,825 - INFO -   Initial number range: 10.0-20.0
+2025-07-24 16:35:52,825 - INFO -   Average initial number: 15.3
+2025-07-24 16:35:52,825 - INFO - 
+--- TIC-TAC-TOE ---
+2025-07-24 16:35:52,827 - INFO - 
+Minimax AI vs Minimax AI (200 games):
+2025-07-24 16:35:52,828 - INFO -   Draws: 200 (100.0%)
+2025-07-24 16:35:52,828 - INFO -   Average moves per game: 9.00
+2025-07-24 16:35:52,828 - INFO -   Min/Max moves: 9/9
+2025-07-24 16:35:52,828 - INFO -   Avg computation time - Player 1: 615.3969s
+2025-07-24 16:35:52,828 - INFO -   Avg computation time - Player 2: 66.7186s
+2025-07-24 16:35:52,828 - INFO -   Initial number range: nan-nan
+2025-07-24 16:35:52,829 - INFO -   Average initial number: nan
+2025-07-24 16:35:52,829 - INFO - 
+Minimax AI vs Random AI (200 games):
+2025-07-24 16:35:52,829 - INFO -   Player 1 (Minimax AI) wins: 191 (95.5%)
+2025-07-24 16:35:52,829 - INFO -   Draws: 9 (4.5%)
+2025-07-24 16:35:52,829 - INFO -   Average moves per game: 6.84
+2025-07-24 16:35:52,829 - INFO -   Min/Max moves: 5/9
+2025-07-24 16:35:52,830 - INFO -   Avg computation time - Player 1: 509.6196s
+2025-07-24 16:35:52,830 - INFO -   Avg computation time - Player 2: 0.7071s
+2025-07-24 16:35:52,830 - INFO -   Initial number range: nan-nan
+2025-07-24 16:35:52,830 - INFO -   Average initial number: nan
+2025-07-24 16:35:52,830 - INFO - 
+Random AI vs Minimax AI (200 games):
+2025-07-24 16:35:52,831 - INFO -   Player 2 (Minimax AI) wins: 158 (79.0%)
+2025-07-24 16:35:52,831 - INFO -   Draws: 42 (21.0%)
+2025-07-24 16:35:52,831 - INFO -   Average moves per game: 7.33
+2025-07-24 16:35:52,831 - INFO -   Min/Max moves: 6/9
+2025-07-24 16:35:52,831 - INFO -   Avg computation time - Player 1: 5.5928s
+2025-07-24 16:35:52,832 - INFO -   Avg computation time - Player 2: 51.3667s
+2025-07-24 16:35:52,832 - INFO -   Initial number range: nan-nan
+2025-07-24 16:35:52,832 - INFO -   Average initial number: nan
+2025-07-24 16:35:52,832 - INFO - 
+Random AI vs Random AI (200 games):
+2025-07-24 16:35:52,832 - INFO -   Player 1 (Random AI) wins: 138 (69.0%)
+2025-07-24 16:35:52,832 - INFO -   Player 2 (Random AI) wins: 44 (22.0%)
+2025-07-24 16:35:52,832 - INFO -   Draws: 18 (9.0%)
+2025-07-24 16:35:52,832 - INFO -   Average moves per game: 7.58
+2025-07-24 16:35:52,832 - INFO -   Min/Max moves: 5/9
+2025-07-24 16:35:52,832 - INFO -   Avg computation time - Player 1: 0.0099s
+2025-07-24 16:35:52,832 - INFO -   Avg computation time - Player 2: 0.0080s
+2025-07-24 16:35:52,832 - INFO -   Initial number range: nan-nan
+2025-07-24 16:35:52,832 - INFO -   Average initial number: nan

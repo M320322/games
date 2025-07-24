@@ -8,6 +8,7 @@ Rules:
 - Default setup: 4 piles with 1, 3, 5, 7 objects respectively
 """
 
+from typing import Any, List, Tuple, Dict, Optional
 import numpy as np
 from .base_game import Game
 
@@ -18,50 +19,45 @@ class NimGame(Game):
 
     Parameters
     ----------
-    piles : list[int], default=[1, 3, 5, 7]
+    piles : List[int], default=[1, 3, 5, 7]
         Initial number of objects in each pile.
 
     Attributes
     ----------
-    initial_piles : list[int]
+    initial_piles : List[int]
         The initial pile configuration.
     """
 
-    def __init__(self, piles: list[int] = None) -> None:
+    def __init__(self, piles: Optional[List[int]] = None) -> None:
         if piles is None:
             piles = [1, 3, 5, 7]
         self.initial_piles = piles.copy()
         super().__init__()
 
-    def initial_state(self) -> tuple[list[int], int]:
+    def initial_state(self) -> Tuple[List[int], int]:
         """
         Return the initial game state.
 
         Returns
         -------
-        tuple[list[int], int]
+        Tuple[List[int], int]
             Initial game state as (piles, current_player).
             piles: list of integers representing objects in each pile.
         """
         return (self.initial_piles.copy(), 1)
 
-    def actions(self, state: tuple[list[int], int]) -> list[tuple[int, int]]:
+    def actions(self) -> List[Tuple[int, int]]:
         """
-        Return a list of valid actions for the given state.
-
-        Parameters
-        ----------
-        state : tuple[list[int], int]
-            The game state as (piles, current_player).
+        Return a list of valid actions for the current state.
 
         Returns
         -------
-        list[tuple[int, int]]
+        List[Tuple[int, int]]
             List of valid actions as (pile_index, objects_to_remove).
             Each action represents removing a number of objects from a specific pile.
         """
-        piles, _ = state
-        piles_array = np.array(piles)
+        piles, _ = self.state
+        piles_array = np.array(piles, dtype=int)
 
         non_empty_mask = piles_array > 0
         non_empty_indices = np.where(non_empty_mask)[0]
@@ -73,8 +69,8 @@ class NimGame(Game):
         for i, (pile_idx, pile_size) in enumerate(
             zip(non_empty_indices, non_empty_sizes)
         ):
-            removals = np.arange(1, pile_size + 1)
-            pile_indices = np.full(len(removals), pile_idx)
+            removals = np.arange(1, pile_size + 1, dtype=int)
+            pile_indices = np.full(len(removals), pile_idx, dtype=int)
 
             pile_indices_list.append(pile_indices)
             removal_counts_list.append(removals)
@@ -89,30 +85,21 @@ class NimGame(Game):
 
         return actions
 
-    def next(
-        self, state: tuple[list[int], int], action: tuple[int, int]
-    ) -> tuple[list[int], int]:
+    def next(self, action: Tuple[int, int]) -> None:
         """
-        Return the state that results from making an action in the given state.
+        Update the game state to the next state after making an action.
 
         Parameters
         ----------
-        state : tuple[list[int], int]
-            The current game state as (piles, current_player).
-        action : tuple[int, int]
+        action : Tuple[int, int]
             The action to take as (pile_index, objects_to_remove).
-
-        Returns
-        -------
-        tuple[list[int], int]
-            The resulting state as (new_piles, next_player).
 
         Raises
         ------
         ValueError
             If the action is invalid.
         """
-        piles, player = state
+        piles, player = self.state
         pile_idx, objects_to_remove = action
 
         if pile_idx < 0 or pile_idx >= len(piles):
@@ -125,71 +112,50 @@ class NimGame(Game):
 
         new_piles = piles.copy()
         new_piles[pile_idx] -= objects_to_remove
-        next_player = -player
 
-        return (new_piles, next_player)
+        self.state = (new_piles, -player)
 
-    def is_terminal(self, state: tuple[list[int], int]) -> bool:
+    def is_terminal(self) -> bool:
         """
-        Return True if the game is over in the given state.
-
-        Parameters
-        ----------
-        state : tuple[list[int], int]
-            The game state as (piles, current_player).
+        Return True if the game is over in the current state.
 
         Returns
         -------
         bool
             True if all piles are empty (game is over), False otherwise.
         """
-        piles, _ = state
+        piles, _ = self.state
         return all(pile == 0 for pile in piles)
 
-    def utility(self, state: tuple[list[int], int], player: int) -> float:
+    def utility(self) -> float:
         """
-        Return the utility value for the given player in the terminal state.
-
-        Parameters
-        ----------
-        state : tuple[list[int], int]
-            The terminal game state as (piles, current_player).
-        player : int
-            The player ID to evaluate utility for.
+        Return the utility value in the terminal state.
 
         Returns
         -------
         float
-            The utility value for the player (1 if won, -1 if lost).
+            The utility value for Player 1 (1 if won, -1 if lost).
             In Nim, the player who made the last move wins.
         """
-        if not self.is_terminal(state):
-            return 0.0
+        if not self.is_terminal():
+            raise ValueError("Game is not over yet")
 
-        _, current_player = state
-        previous_player = -current_player
+        return float(self.get_winner())
 
-        if player == previous_player:
-            return 1.0  # Win
-        else:
-            return -1.0  # Loss
-
-    def player(self, state: tuple[list[int], int]) -> int:
+    def get_winner(self) -> Optional[int]:
         """
-        Return the player whose turn it is in the given state.
-
-        Parameters
-        ----------
-        state : tuple[list[int], int]
-            The game state as (piles, current_player).
+        Get the winner of the game if it's over.
 
         Returns
         -------
-        int
-            The player ID whose turn it is (1 or -1).
+        Optional[int]
+            The player ID of the winner (1 or -1), or None if game is not over.
         """
-        _, current_player = state
-        return current_player
+        if not self.is_terminal():
+            return None
+
+        _, current_player = self.state
+        return -current_player
 
     def __str__(self) -> str:
         """
@@ -206,95 +172,32 @@ class NimGame(Game):
         for i, pile in enumerate(piles):
             result += f"Pile {i + 1}: {'*' * pile} ({pile})\n"
 
-        if self.is_terminal(self.state):
+        if self.is_terminal():
             winner = self.get_winner()
             if winner is not None:
-                winner_symbol = "Player 1" if winner == 1 else "Player -1"
-                result += f"Game Over! Winner: {winner_symbol}"
+                winner_name = "Player 1" if winner == 1 else "Player -1"
+                result += f"Game Over! Winner: {winner_name}"
         else:
-            player_symbol = "Player 1" if current_player == 1 else "Player -1"
-            result += f"Current player: {player_symbol}"
+            player_name = "Player 1" if current_player == 1 else "Player -1"
+            result += f"Current player: {player_name}"
 
         return result
 
-    def get_nim_sum(self, state: tuple[list[int], int] = None) -> int:
-        """
-        Calculate the nim-sum (XOR of all pile sizes) for the given state.
-
-        This is useful for optimal strategy - a nim-sum of 0 means the current
-        player is in a losing position (assuming perfect play).
-
-        Parameters
-        ----------
-        state : tuple[list[int], int], optional
-            The game state to evaluate. If None, uses current state.
-
-        Returns
-        -------
-        int
-            The nim-sum of all piles.
-        """
-        if state is None:
-            state = self.state
-
-        piles, _ = state
-        return np.bitwise_xor.reduce(np.array(piles))
-
-    def get_optimal_move(
-        self, state: tuple[list[int], int] = None
-    ) -> tuple[int, int] | None:
-        """
-        Get the optimal move for the current position using nim-sum strategy.
-
-        Parameters
-        ----------
-        state : tuple[list[int], int], optional
-            The game state to evaluate. If None, uses current state.
-
-        Returns
-        -------
-        tuple[int, int] or None
-            The optimal move as (pile_index, objects_to_remove), or None if
-            no winning move exists (nim-sum is already 0).
-        """
-        if state is None:
-            state = self.state
-
-        piles, _ = state
-        piles_array = np.array(piles)
-        nim_sum = self.get_nim_sum(state)
-
-        if nim_sum == 0:
-            return None
-
-        targets = np.bitwise_xor(piles_array, nim_sum)
-        valid_moves = targets < piles_array
-
-        if np.any(valid_moves):
-            pile_idx = np.argmax(valid_moves)
-            target = targets[pile_idx]
-            objects_to_remove = piles_array[pile_idx] - target
-            return (int(pile_idx), int(objects_to_remove))
-
-        return None
-
-    def get_state_display(self) -> dict[str, any]:
+    def get_state_display(self) -> Dict[str, Any]:
         """
         Get a display-friendly representation of the state.
 
         Returns
         -------
-        dict[str, any]
+        Dict[str, Any]
             Dictionary containing game state information for display.
         """
         piles, current_player = self.state
         return {
             "piles": piles,
             "current_player": current_player,
-            "is_game_over": self.is_game_over(),
-            "winner": self.get_winner() if self.is_game_over() else None,
-            "valid_actions": self.actions(self.state),
-            "nim_sum": self.get_nim_sum(),
-            "optimal_move": self.get_optimal_move(),
+            "is_terminal": self.is_terminal(),
+            "winner": self.get_winner() if self.is_terminal() else None,
+            "valid_actions": self.actions(),
             "total_objects": sum(piles),
         }

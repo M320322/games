@@ -60,13 +60,14 @@ def play_game(game: Game, agent1: Agent, agent2: Agent) -> None:
     print(f"\nStarting game: {agent1} vs {agent2}")
     print("=" * 50)
 
-    while not game.is_game_over():
-        current_agent = agents[game.current_player]
+    while not game.is_terminal():
+        _, agentID = game.state
+        current_agent = agents[agentID]
 
         try:
             action = current_agent.choose_action(game)
             if action is not None:
-                game.move(action)
+                game.next(action)
         except KeyboardInterrupt:
             print("\nGame interrupted by user.")
             return

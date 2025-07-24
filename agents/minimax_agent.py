@@ -2,7 +2,7 @@
 Minimax agent that uses the minimax algorithm to choose optimal actions.
 """
 
-import math
+import random
 from typing import TYPE_CHECKING
 from .base_agent import Agent
 
@@ -20,20 +20,16 @@ class MinimaxAgent(Agent):
         The ID of the player (1 or -1).
     name : str, default="Minimax AI"
         The display name for the agent.
-    max_depth : int or None, default=None
-        Maximum search depth. If None, searches to terminal states.
-
-    Attributes
-    ----------
-    max_depth : int or None
-        The maximum depth to search in the game tree.
+    random_seed : int, default=42
+        Random seed for reproducibility.
     """
 
     def __init__(
-        self, player_id: int, name: str = "Minimax AI", max_depth: int | None = None
+        self, player_id: int, name: str = "Minimax AI", random_seed: int = 42
     ) -> None:
         super().__init__(player_id, name)
-        self.max_depth = max_depth
+        self.random_seed = random_seed
+        random.seed(self.random_seed)
 
     def choose_action(self, game: "Game") -> any:
         """
@@ -49,7 +45,7 @@ class MinimaxAgent(Agent):
         any
             The optimal action according to minimax algorithm, or None if no actions available.
         """
-        actions = game.actions(game.state)
+        actions = game.actions()
 
         if not actions:
             return None
@@ -59,75 +55,43 @@ class MinimaxAgent(Agent):
             print(f"{self.name} chooses: {action}")
             return action
 
-        best_action = None
-        best_value = -math.inf
-
+        # Store all actions
+        action_values = []
         for action in actions:
-            # Create a copy of the game and make the move
             game_copy = game.copy()
-            game_copy.move(action)
+            game_copy.next(action)
+            value = self._minimizer(game_copy)
+            action_values.append((action, value))
 
-            # Calculate the minimax value
-            value = self._minimax(game_copy, 0, False, -math.inf, math.inf)
+        max_value = max(action_values, key=lambda x: x[1])[1]
+        best_actions = [action for action, value in action_values if value == max_value]
 
-            if value > best_value:
-                best_value = value
-                best_action = action
+        # Randomly choose among the best actions
+        best_action = random.choice(best_actions)
 
-        print(f"{self.name} chooses: {best_action} (value: {best_value:.2f})")
+        print(f"{self.name} chooses: {best_action} (value: {max_value:.2f})")
         return best_action
 
-    def _minimax(
-        self,
-        game: "Game",
-        depth: int,
-        maximizing_player: bool,
-        alpha: float,
-        beta: float,
-    ) -> float:
-        """
-        Minimax algorithm with alpha-beta pruning.
+    def _maximizer(self, game: "Game") -> float:
+        if game.is_terminal():
+            return self.player_id * game.utility()
 
-        Parameters
-        ----------
-        game : Game
-            The current game state.
-        depth : int
-            Current search depth.
-        maximizing_player : bool
-            True if maximizing player's turn, False if minimizing player's turn.
-        alpha : float
-            Alpha value for alpha-beta pruning.
-        beta : float
-            Beta value for alpha-beta pruning.
+        max_eval = float("-inf")
+        for action in game.actions():
+            game_copy = game.copy()
+            game_copy.next(action)
+            eval_score = self._minimizer(game_copy)
+            max_eval = max(max_eval, eval_score)
+        return max_eval
 
-        Returns
-        -------
-        float
-            The minimax value of the current position.
-        """
-        if game.is_game_over() or (self.max_depth and depth >= self.max_depth):
-            return game.utility(game.state, self.player_id)
+    def _minimizer(self, game: "Game") -> float:
+        if game.is_terminal():
+            return self.player_id * game.utility()
 
-        if maximizing_player:
-            max_eval = -math.inf
-            for action in game.actions(game.state):
-                game_copy = game.copy()
-                game_copy.move(action)
-                eval_score = self._minimax(game_copy, depth + 1, False, alpha, beta)
-                max_eval = max(max_eval, eval_score)
-                alpha = max(alpha, eval_score)
-                if beta <= alpha:
-                    break  # Alpha-beta pruning
-            return max_eval
-        else:
-            min_eval = math.inf
-            for action in game.actions(game.state):
-                game_copy = game.copy()
-                game_copy.move(action)
-                eval_score = self._minimax(game_copy, depth + 1, True, alpha, beta)
-                min_eval = min(min_eval, eval_score)
-                beta = min(beta, eval_score)
-                if beta <= alpha:
-                    break  # Alpha-beta pruning
-            return min_eval
+        min_eval = float("inf")
+        for action in game.actions():
+            game_copy = game.copy()
+            game_copy.next(action)
+            eval_score = self._maximizer(game_copy)
+            min_eval = min(min_eval, eval_score)
+        return min_eval

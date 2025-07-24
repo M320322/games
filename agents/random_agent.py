@@ -20,10 +20,16 @@ class RandomAgent(Agent):
         The ID of the player (1 or -1).
     name : str, default="Random AI"
         The display name for the agent.
+    random_seed : int, default=42
+        Random seed for reproducibility.
     """
 
-    def __init__(self, player_id: int, name: str = "Random AI") -> None:
+    def __init__(
+        self, player_id: int, name: str = "Random AI", random_seed: int = 42
+    ) -> None:
         super().__init__(player_id, name)
+        self.random_seed = random_seed
+        random.seed(self.random_seed)
 
     def choose_action(self, game: "Game") -> any:
         """
@@ -39,7 +45,7 @@ class RandomAgent(Agent):
         any
             A randomly chosen action from the valid actions, or None if no actions available.
         """
-        actions = game.actions(game.state)
+        actions = game.actions()
 
         if not actions:
             return None

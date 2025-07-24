@@ -9,6 +9,7 @@ Rules:
 """
 
 import numpy as np
+from typing import Any, Tuple, List, Dict, Optional
 from .base_game import Game
 
 
@@ -25,65 +26,51 @@ class TicTacToeGame(Game):
     def __init__(self) -> None:
         super().__init__()
 
-    def initial_state(self) -> tuple[np.ndarray, int]:
+    def initial_state(self) -> Tuple[np.ndarray, int]:
         """
         Return the initial game state.
 
         Returns
         -------
-        tuple[numpy.ndarray, int]
+        Tuple[numpy.ndarray, int]
             Initial state as (board, current_player).
             Board: 0 = empty, 1 = Player 1 (X), -1 = Player -1 (O).
         """
         board = np.zeros((3, 3), dtype=int)
         return (board, 1)
 
-    def actions(self, state: tuple[np.ndarray, int]) -> list[tuple[int, int]]:
+    def actions(self) -> List[Tuple[int, int]]:
         """
         Return a list of valid actions for the given state.
 
-        Parameters
-        ----------
-        state : tuple[numpy.ndarray, int]
-            The game state as (board, current_player).
-
         Returns
         -------
-        list[tuple[int, int]]
+        List[Tuple[int, int]]
             List of valid positions as (row, col) tuples.
         """
-        board, _ = state
+        board, _ = self.state
 
-        if self.is_terminal(state):
+        if self.is_terminal():
             return []
 
         empty_positions = np.argwhere(board == 0)
         return [(int(row), int(col)) for row, col in empty_positions]
 
-    def next(
-        self, state: tuple[np.ndarray, int], action: tuple[int, int]
-    ) -> tuple[np.ndarray, int]:
+    def next(self, action: Tuple[int, int]) -> None:
         """
-        Return the state that results from making an action in the given state.
+        Update the game state to the next state after making an action.
 
         Parameters
         ----------
-        state : tuple[numpy.ndarray, int]
-            The current game state as (board, current_player).
-        action : tuple[int, int]
+        action : Tuple[int, int]
             The action to take as (row, col).
-
-        Returns
-        -------
-        tuple[numpy.ndarray, int]
-            The resulting state as (new_board, next_player).
 
         Raises
         ------
         ValueError
             If the position is already occupied.
         """
-        board, player = state
+        board, player = self.state
         row, col = action
 
         if board[row][col] != 0:
@@ -92,92 +79,54 @@ class TicTacToeGame(Game):
             )
 
         new_board = board.copy()
-        new_board[row][col] = player
+        new_board[row, col] = player
 
-        next_player = -player
-        return (new_board, next_player)
+        self.state = (new_board, -player)
 
-    def is_terminal(self, state: tuple[np.ndarray, int]) -> bool:
+    def is_terminal(self) -> bool:
         """
         Return True if the game is over in the given state.
-
-        Parameters
-        ----------
-        state : tuple[numpy.ndarray, int]
-            The game state as (board, current_player).
 
         Returns
         -------
         bool
             True if there's a winner or the board is full, False otherwise.
         """
-        board, _ = state
+        board, _ = self.state
 
-        if self._check_winner(board) is not None:
+        if self.get_winner() is not None:
             return True
 
         return not np.any(board == 0)
 
-    def utility(self, state: tuple[np.ndarray, int], player: int) -> float:
+    def utility(self) -> float:
         """
-        Return the utility value for the given player in the terminal state.
-
-        Parameters
-        ----------
-        state : tuple[numpy.ndarray, int]
-            The terminal game state as (board, current_player).
-        player : int
-            The player ID to evaluate utility for.
+        Return the utility value in the terminal state.
 
         Returns
         -------
         float
-            1.0 if the player wins, 0.0 for draw, -1.0 if the player loses.
+            1.0 if Player 1 wins, -1.0 if Player 1 loses, 0.0 for a draw.
         """
-        if not self.is_terminal(state):
-            return 0
+        if not self.is_terminal():
+            raise ValueError("Game is not over yet")
 
-        board, _ = state
-        winner = self._check_winner(board)
+        winner = self.get_winner()
 
-        if winner == player:
-            return 1  # Win
-        elif winner is None:
-            return 0  # Draw
-        else:
-            return -1  # Loss
+        if winner:
+            return float(winner)
+        return 0.0
 
-    def player(self, state: tuple[np.ndarray, int]) -> int:
+    def get_winner(self) -> Optional[int]:
         """
-        Return the player whose turn it is in the given state.
-
-        Parameters
-        ----------
-        state : tuple[numpy.ndarray, int]
-            The game state as (board, current_player).
+        Check if there's a winner on the board.
 
         Returns
         -------
-        int
-            The player ID whose turn it is.
-        """
-        board, current_player = state
-        return current_player
-
-    def _check_winner(self, board: np.ndarray) -> int | None:
-        """
-        Check if there's a winner on the board using efficient numpy operations.
-
-        Parameters
-        ----------
-        board : numpy.ndarray
-            The 3x3 game board.
-
-        Returns
-        -------
-        int or None
+        Optional[int]
             The player number (1 or -1) if there's a winner, None otherwise.
         """
+        board, _ = self.state
         lines = np.concatenate(
             [
                 board.sum(axis=1),  # Row sums
@@ -216,8 +165,8 @@ class TicTacToeGame(Game):
 
         board_str = "\n".join(lines)
 
-        if self.is_terminal(self.state):
-            winner = self._check_winner(board)
+        if self.is_terminal():
+            winner = self.get_winner()
             if winner:
                 return f"{board_str}\n\nGame Over! Player {winner} ({'X' if winner == 1 else 'O'}) wins!"
             else:
@@ -227,13 +176,13 @@ class TicTacToeGame(Game):
                 f"{board_str}\n\nPlayer {player}'s turn ({'X' if player == 1 else 'O'})"
             )
 
-    def get_state_display(self) -> dict[str, any]:
+    def get_state_display(self) -> Dict[str, Any]:
         """
         Get a display-friendly representation of the state.
 
         Returns
         -------
-        dict[str, any]
+        Dict[str, Any]
             Dictionary containing game state information for display.
         """
         board, player = self.state
@@ -243,7 +192,7 @@ class TicTacToeGame(Game):
         return {
             "board": board_list,
             "current_player": player,
-            "is_game_over": self.is_game_over(),
-            "winner": self._check_winner(board) if self.is_game_over() else None,
-            "valid_actions": self.actions(self.state),
+            "is_terminal": self.is_terminal(),
+            "winner": self.get_winner() if self.is_terminal() else None,
+            "valid_actions": self.actions(),
         }
